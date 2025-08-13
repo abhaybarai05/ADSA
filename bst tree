@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int value) {
+        data = value;
+        left = right = null;
+    }
+}
+
+public class bst {
+
+    public static Node insert(Node root, int value) {
+        if (root == null) {
+            return new Node(value);
+        }
+        if (value < root.data) {
+            root.left = insert(root.left, value);
+        } else if (value > root.data) {
+            root.right = insert(root.right, value);
+        }
+        return root;
+    }
+
+    public static void inorder(Node root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
+    }
+
+    public static void preorder(Node root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    public static void postorder(Node root) {
+        if (root != null) {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Node root = null;
+
+        System.out.print("Enter number of nodes: ");
+        int n = scanner.nextInt();
+
+        System.out.println("Enter " + n + " node values:");
+        for (int i = 0; i < n; i++) {
+            int value = scanner.nextInt();
+            root = insert(root, value);
+        }
+
+        System.out.print("In-order Traversal: ");
+        inorder(root);
+        System.out.println();
+
+        System.out.print("Pre-order Traversal: ");
+        preorder(root);
+        System.out.println();
+
+        System.out.print("Post-order Traversal: ");
+        postorder(root);
+        System.out.println();
+
+        scanner.close();
+    }
+}
